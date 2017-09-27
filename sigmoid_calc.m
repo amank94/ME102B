@@ -8,6 +8,7 @@ tic
 pt_A = [0.05,.5];
 pt_B = [.1,.1];
 leg = EPP(pt_A, pt_B); % POINTS GO HERE
+time_step = 0.0005;
 V_max = 1; % max allowable effector velocity (m/s)
 A_max = 4; % max allowable effector acceleration (m/s^2)
 V_tol = 0.01; % velocity tolerance (m/s) for start and end of motion with sigmoid
@@ -15,7 +16,7 @@ V_tol = 0.01; % velocity tolerance (m/s) for start and end of motion with sigmoi
 %% Initial Values of Parameters and Time
 a = (4*V_max)/leg; % steepness (limited by V_max initially)
 c = 0; % location of mid-path (inflection point)
-t = 0:0.001:10;
+t = 0:time_step:10;
 
 sig_num = -leg./(1 + exp(-a.*(c-t))) + leg;
 d_sig_num = (leg.*a.*exp(-a.*(c - t)))./(exp(-a.*(c - t)) + 1).^2;
@@ -41,7 +42,7 @@ end
 d_sig_tol = d_sig_num - V_tol;
 end_index = find(d_sig_tol<=0, 1, 'first');
 c = t(end_index);
-t = 0:0.001:2*t(end_index);
+t = 0:time_step:2*t(end_index);
 
 sig_num = -leg./(1 + exp(-a.*(c-t))) + leg;
 d_sig_num = (leg.*a.*exp(-a.*(c - t)))./(exp(-a.*(c - t)) + 1).^2;
@@ -221,6 +222,7 @@ D_stepped = ceil((D_length - D_length(1))./step_length).*step_length + D_length(
 toc
 
 %% Plot Stepped Cable Lengths
+
 figure(5)
 
 subplot(2,2,3)
@@ -250,3 +252,37 @@ title('Stepped D-Cable Length vs time');
 xlabel('time (s)');
 ylabel('length (m)');
 xlim([0,t(end)])
+%}
+%% Create Array for Stepper Drivers
+
+step_array = zeros(4,length(A_stepped));
+
+for i = 2:length(step_array)
+    if A_stepped(i) > A_stepped(i-1)
+       step_array(1,i) = 1; 
+    end
+    if A_stepped(i) < A_stepped(i-1)
+       step_array(1,i) = -1; 
+    end
+    
+    if B_stepped(i) > B_stepped(i-1)
+       step_array(2,i) = 1; 
+    end
+    if B_stepped(i) < B_stepped(i-1)
+       step_array(2,i) = -1; 
+    end
+    
+    if C_stepped(i) > C_stepped(i-1)
+       step_array(3,i) = 1; 
+    end
+    if C_stepped(i) < C_stepped(i-1)
+       step_array(3,i) = -1; 
+    end
+    
+    if D_stepped(i) > D_stepped(i-1)
+       step_array(4,i) = 1; 
+    end
+    if D_stepped(i) < D_stepped(i-1)
+       step_array(4,i) = -1; 
+    end
+end
