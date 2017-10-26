@@ -5,12 +5,12 @@
 
 %% Length Determination and Inputs
 tic
-pt_A = [0.05,.5];
-pt_B = [.1,.1];
+pt_A = [0.1,0.8];
+pt_B = [0.7,0.5];
 leg = EPP(pt_A, pt_B); % POINTS GO HERE
-time_step = 0.0005;
+time_step = 0.0001;
 V_max = 1; % max allowable effector velocity (m/s)
-A_max = 4; % max allowable effector acceleration (m/s^2)
+A_max = 1; % max allowable effector acceleration (m/s^2)
 V_tol = 0.01; % velocity tolerance (m/s) for start and end of motion with sigmoid
 
 %% Initial Values of Parameters and Time

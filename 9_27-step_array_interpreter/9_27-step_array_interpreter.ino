@@ -14,6 +14,7 @@ int cmd[][8] = {{1, -1, 1, -1, 1, -1, 1, -1},
             // -1: take step with reverse direction
             // 0: do nothing
 
+
 void setup() {
   for (int p = 0; p < 4; p++) {
     pinMode(step_pins[p], OUTPUT);
@@ -27,7 +28,7 @@ void setup() {
 
 void loop() {
   for (int i = 0; i < 8 ; i++) { // iterate through each time step in cmd
-    for (int j = 0; j < 4; j++) { // iterate through each stepper motor's commands
+    for (int j = 0; j < 4; j++) { // iterate through each stepper motor's commands within each time step
       switch (cmd[j][i]) {
         case 1: // if 1, set direction forward (high) and send quick high pulse to step pin
           digitalWrite(dir_pins[j], HIGH);
@@ -46,9 +47,8 @@ void loop() {
     }
 
     current_micros = micros(); // grab current timestamp
-    while ((current_micros - previous_micros) < (time_step-7)) { // compare time difference
-      delayMicroseconds(1); // delay a tiny bit if not enough time has passed
-      current_micros = micros();
+    if ((current_micros - previous_micros) < (time_step)) { // compare time difference, subtract measured error
+      delayMicroseconds(time_step-(current_micros-previous_micros)); // delay a tiny bit if not enough time has passed
     }
     previous_micros = micros(); // grab current timestamp for comparison in the next iteration
   }
