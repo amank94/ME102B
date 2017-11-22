@@ -4,6 +4,7 @@ from sigmoid_motion_generator import sigmoid_motion_generator
 from cartesian_motion_conversion import cartesian_motion_conversion
 from ideal_cable_length import ideal_cable_length
 from stepped_cable_lengths import stepped_cable_lengths
+from command_generator import command_generator
 
 pt_A = np.array([0.1, 0.1, 0.1]);
 pt_B = np.array([0.9, 0.8, 0.7]);
@@ -37,8 +38,9 @@ spool_radius = 0.02; # spool radius (m)
 step_length = (np.pi*2*spool_radius)/(spr*drive_ratio); # arc length swept by each step (i.e. cable length change)
 
 stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
+command_array = command_generator(stepped_cables);
 
-print(stepped_cables)
+print(command_array)
 
 # toc
 # clf
