@@ -1,6 +1,7 @@
-import time as time
-
-def execute_command(command_array, time_step):
+def execute_command(command_array):
+	import time
+	import RPi.GPIO as GPIO
+	time_step = 1
 	for i in range(len(command_array)):
 		start_time = time.perf_couter();
 
