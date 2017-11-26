@@ -6,6 +6,8 @@ def gcode_interpreter(gcode):
 	pt_A = np.array([0,0,0]) #begin with pt_A at home
 	pt_B = np.array([0,0,0])
 	v_max = 0
+	v_rapid = 1000
+	unit_multiplier = 1
 	print('Ready to run G-Code')
 	input("Press Enter to continue...")
 	print('Running G-Code...')
@@ -16,34 +18,40 @@ def gcode_interpreter(gcode):
 			if (line[0] == 'G'): # if it's a G command
 
 				#print('  G command found') #debug
-				if(line[1] + line[2] == '01'): # if it's a G01
+				if(line[1] + line[2] == '20'): # if it's a G20 (programming in inches) // Default is G21 (programming in mm)
+					unit_multiplier = 25.4
+
+				if(line[1] + line[2] == '01' or line[1] + line[2] == '00'): # if it's a G01 or a G00
 					#print('    linear interpolation found') #debug
 					if (line.find('X') != -1):
 						#print('      X found') #debug
 						if(line.find(' ', line.index('X'), len(line)) == -1): # if no space after X, read to line ending
-							pt_B[0] = int(line[line.index('X')+1:len(line)])
+							pt_B[0] = unit_multiplier*int(line[line.index('X')+1:len(line)])
 						else: # if space after X, i.e. more info on line
-							pt_B[0] = int(line[line.index('X')+1:line.index(' ', line.index('X'), len(line))])
+							pt_B[0] = unit_multiplier*int(line[line.index('X')+1:line.index(' ', line.index('X'), len(line))])
 					if (line.find('Y') != -1):
 						#print('      Y found') #debug
 						if(line.find(' ', line.index('Y'), len(line)) == -1): # if no space after X, read to line ending
-							pt_B[1] = int(line[line.index('Y')+1:len(line)])
+							pt_B[1] = unit_multiplier*int(line[line.index('Y')+1:len(line)])
 						else: # if space after X, i.e. more info on line
-							pt_B[1] = int(line[line.index('Y')+1:line.index(' ', line.index('Y'), len(line))])
+							pt_B[1] = unit_multiplier*int(line[line.index('Y')+1:line.index(' ', line.index('Y'), len(line))])
 					if (line.find('Z') != -1):
 						#print('      Z found') #debug
 						if(line.find(' ', line.index('Z'), len(line)) == -1): # if no space after X, read to line ending
-							pt_B[2] = int(line[line.index('Z')+1:len(line)])
+							pt_B[2] = unit_multiplier*int(line[line.index('Z')+1:len(line)])
 						else: # if space after X, i.e. more info on line
-							pt_B[2] = int(line[line.index('Z')+1:line.index(' ', line.index('Z'), len(line))])
+							pt_B[2] = unit_multiplier*int(line[line.index('Z')+1:line.index(' ', line.index('Z'), len(line))])
 					if (line.find('F') != -1):
 						#print('      F found') #debug
 						if(line.find(' ', line.index('F'), len(line)) == -1): # if no space after X, read to line ending
-							v_max = int(line[line.index('F')+1:len(line)])
+							v_max = unit_multiplier*int(line[line.index('F')+1:len(line)])
 						else: # if space after X, i.e. more info on line
-							v_max = int(line[line.index('F')+1:line.index(' ', line.index('F'), len(line))])
+							v_max = unit_multiplier*int(line[line.index('F')+1:line.index(' ', line.index('F'), len(line))])
 					if ((line.find('X') != -1) or (line.find('Y') != -1) or (line.find('Z') != -1)):
-						print('move from', pt_A, 'to', pt_B, 'at', v_max, 'mm/min')
+						if (line[1] + line[2] == '00'):
+							print('rapid from', pt_A, 'to', pt_B, 'at', v_rapid, 'mm/min')
+						else:
+							print('move from', pt_A, 'to', pt_B, 'at', v_max, 'mm/min')
 
 						#CALL FUNCTION TO MOVE EFFECTOR
 
