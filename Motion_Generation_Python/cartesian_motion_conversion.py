@@ -10,5 +10,6 @@ def cartesian_motion_conversion(path_position, pt_A, pt_B, leg):
     cartesian_position[0,:] = pt_A[0] + (x_component/leg)*path_position;
     cartesian_position[1,:] = pt_A[1] + (y_component/leg)*path_position;
     cartesian_position[2,:] = pt_A[2] + (z_component/leg)*path_position;
-    
+    print(cartesian_position)
+
     return cartesian_position

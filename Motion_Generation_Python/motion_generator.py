@@ -9,7 +9,7 @@ from execute_command import execute_command
 from setup_sequence import setup_sequence
 
 pt_A = np.array([100, 100, 100]);
-pt_B = np.array([200, 200, 200]);
+pt_B = np.array([300, 300, 300]);
 V_max = 100;
 
 leg=distance_3d(pt_A, pt_B)
@@ -21,7 +21,6 @@ A_max = 400; # max allowable effector acceleration (mm/s^2)
 V_tol = 100; # velocity tolerance (mm/s) for start and end of motion with sigmoid
 time_step = 0.0001; # interval between points, i.e. resolution of model
 path_position = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
-
 cartesian_position = cartesian_motion_conversion(path_position, pt_A, pt_B, leg)
 
 w = 800; # width (X-dimension) of working area (mm)
@@ -39,9 +38,12 @@ spool_radius = 20; # spool radius (mm)
 step_length = (np.pi*2*spool_radius)/(spr*drive_ratio); # arc length swept by each step (i.e. cable length change)
 
 stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
+print("stepped cables",stepped_cables)
 command_array = command_generator(stepped_cables);
 
 print(command_array)
+print("size of command array",command_array.shape)
+
 
 setup_sequence()
 

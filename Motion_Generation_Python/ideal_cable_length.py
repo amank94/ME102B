@@ -9,7 +9,6 @@ def ideal_cable_length(w,l,ht,hb,e,f,g,cartesian_position):
     T3_cable_ideal = np.array(((w-x_position-f)**2 + (l-y_position-e)**2 + (ht-z_position-g)**2)**(0.5));
     T4_cable_ideal = np.array(((w-x_position-f)**2 + (y_position-e)**2 + (ht-z_position-g)**2)**(0.5));
     
-    
     B1_cable_ideal = np.array(((x_position-f)**2 + (y_position-e)**2 + (hb-z_position-g)**2)**(0.5));
     B2_cable_ideal = np.array(((x_position-f)**2 + (l-y_position-e)**2 + (hb-z_position-g)**2)**(0.5));
     B3_cable_ideal = np.array(((w-x_position-f)**2 + (l-y_position-e)**2 + (hb-z_position-g)**2)**(0.5));
