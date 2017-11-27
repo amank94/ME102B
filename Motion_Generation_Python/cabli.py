@@ -3,10 +3,10 @@ import time
 import tkinter as tk
 from tkinter import filedialog
 from gcode_interpreter import gcode_interpreter
-#from setup_sequence import setup_sequence
+from setup_sequence import setup_sequence
 
 # GPIO SETUP
-#setup_sequence()
+setup_sequence()
 
 # HOMING SEQUENCE
 print('Ready to home system?')

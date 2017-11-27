@@ -52,11 +52,13 @@ def gcode_interpreter(gcode):
 					if ((line.find('X') != -1) or (line.find('Y') != -1) or (line.find('Z') != -1)):
 						if (line[1] + line[2] == '00'):
 							print('rapid from', pt_A, 'to', pt_B, 'at', v_rapid, 'mm/min')
+							#CALL FUNCTION TO MOVE EFFECTOR
 						else:
 							print('move from', pt_A, 'to', pt_B, 'at', v_max, 'mm/min')
+							#CALL FUNCTION TO MOVE EFFECTOR
 					if ((line.find('X') == -1) and (line.find('Y') == -1) and (line.find('Z') == -1) and line.find('F') != -1):
 						print('feed rate changed to', v_max, 'mm/min')
-						#CALL FUNCTION TO MOVE EFFECTOR
+						
 
 					if (line.find('C') != -1):
 						#print('      C found') #debug
