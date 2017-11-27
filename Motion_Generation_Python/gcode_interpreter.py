@@ -3,11 +3,11 @@ def gcode_interpreter(gcode):
 	import numpy as np
 	import time
 
-	pt_A = np.array([0,0,0]) #begin with pt_A at home
-	pt_B = np.array([0,0,0])
-	v_max = 0
-	v_rapid = 1000
-	unit_multiplier = 1
+	pt_A = np.array([0,0,0]) # begin with pt_A at home
+	pt_B = np.array([0,0,0]) # begin with unfilled pt_B array
+	v_max = 0 # begin with max velocity set to 0
+	v_rapid = 1000 # velocity for rapid (G00) movements
+	unit_multiplier = 1 # for mm/inch conversion
 	print('Ready to run G-Code')
 	input("Press Enter to continue...")
 	print('Running G-Code...')
@@ -20,6 +20,8 @@ def gcode_interpreter(gcode):
 				#print('  G command found') #debug
 				if(line[1] + line[2] == '20'): # if it's a G20 (programming in inches) // Default is G21 (programming in mm)
 					unit_multiplier = 25.4
+				if(line[1] + line[2] == '21'): # if it's a G20 (programming in inches) // Default is G21 (programming in mm)
+					unit_multiplier = 1
 
 				if(line[1] + line[2] == '01' or line[1] + line[2] == '00'): # if it's a G01 or a G00
 					#print('    linear interpolation found') #debug
@@ -52,7 +54,8 @@ def gcode_interpreter(gcode):
 							print('rapid from', pt_A, 'to', pt_B, 'at', v_rapid, 'mm/min')
 						else:
 							print('move from', pt_A, 'to', pt_B, 'at', v_max, 'mm/min')
-
+					if ((line.find('X') == -1) and (line.find('Y') == -1) and (line.find('Z') == -1) and line.find('F') != -1):
+						print('feed rate changed to', v_max, 'mm/min')
 						#CALL FUNCTION TO MOVE EFFECTOR
 
 					if (line.find('C') != -1):
@@ -75,7 +78,7 @@ def gcode_interpreter(gcode):
 							dwell = int(line[line.index('P')+1:line.index(' ', line.index('P'), len(line))])
 						print('dwell for', dwell, 'milliseconds')
 						time.sleep(dwell/1000)
-			#time.sleep(1) # temporary, to simulate runtime of each command
+			time.sleep(1) # temporary, to simulate runtime of each command
 			pt_A = np.copy(pt_B)
 			if (line[0] == 'M'): # if it's an M command
 				#print('M command')
