@@ -25,9 +25,9 @@ def sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step):
 
     path_position = np.array(-leg/(1+np.exp(-a*(c-t))) + leg);
 
-    path_accel = np.array(-(2*leg*a**2.*np.exp(-2*a*(c - t)))/(np.exp(-a*(c - t)) + 1)**3
-   + (leg*a**2.*np.exp(-a*(c - t)))/(np.exp(-a*(c - t)) + 1)**2);
 
-    return path_position, path_accel
-    
+    #path_accel = np.array(-(2*leg*a**2.*np.exp(-2*a*(c - t)))/(np.exp(-a*(c - t)) + 1)**3 + (leg*a**2.*np.exp(-a*(c - t)))/(np.exp(-a*(c - t)) + 1)**2);
+
+    return path_position
+
 

@@ -1,9 +1,7 @@
 def stepped_cable_lengths(ideal_cable_length, step_length):
     
     import numpy as np
-    import math	
 
-    
     stepped_cables = np.zeros([8, len(ideal_cable_length[0])]);
     
     for i in range (8):

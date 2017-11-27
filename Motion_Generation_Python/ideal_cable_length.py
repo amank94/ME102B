@@ -23,4 +23,5 @@ def ideal_cable_length(w,l,ht,hb,e,f,g,cartesian_position):
                              (B2_cable_ideal),
                              (B3_cable_ideal),
                              (B4_cable_ideal)]);
+
     return ideal_cables

@@ -1,11 +1,10 @@
-function [] = motion_generator(pt_A, pt_B, V_max)
-tic
+
 %%
-%pt_A = [0.1, 0.8, 0.2]; % x & y coordinates of starting point
-%pt_B = [0.9, 0.2, 0.8]; % x & y coordinates of ending point
+pt_A = [0.1, 0.8, 0.2]; % x & y coordinates of starting point
+pt_B = [0.9, 0.2, 0.8]; % x & y coordinates of ending point
 leg = distance_3d(pt_A, pt_B);
 %%
-%V_max = 1; % max allowable effector velocity (m/s)
+V_max = 1; % max allowable effector velocity (m/s)
 A_max = 4; % max allowable effector acceleration (m/s^2)
 V_tol = 0.01; % velocity tolerance (m/s) for start and end of motion with sigmoid
 time_step = 0.0001; % interval between points, i.e. resolution of model
@@ -88,4 +87,3 @@ title('Stepped B1 Length vs time');
 xlabel('time (s)');
 ylabel('length (m)');
 xlim([0,t(end)])
-end
