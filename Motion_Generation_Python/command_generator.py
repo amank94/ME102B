@@ -21,7 +21,7 @@ def command_generator(stepped_cables):
 
 			command_array[2*i,j] = step
 			command_array[2*i+1,j] = direction
-
+        command_array.astype(int)
 	return command_array
 
 

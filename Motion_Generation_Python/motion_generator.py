@@ -6,9 +6,10 @@ from ideal_cable_length import ideal_cable_length
 from stepped_cable_lengths import stepped_cable_lengths
 from command_generator import command_generator
 from execute_command import execute_command
+from setup_sequence import setup_sequence
 
 pt_A = np.array([100, 100, 100]);
-pt_B = np.array([110, 110, 110]);
+pt_B = np.array([200, 200, 200]);
 V_max = 100;
 
 leg=distance_3d(pt_A, pt_B)
@@ -41,6 +42,7 @@ stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
 command_array = command_generator(stepped_cables);
 
 print(command_array)
-#input("Press Enter to continue...")
+
+setup_sequence()
 
 execute_command(command_array)
