@@ -7,8 +7,8 @@ from stepped_cable_lengths import stepped_cable_lengths
 from command_generator import command_generator
 from execute_command import execute_command
 
-pt_A = np.array([0.1, 0.1, 0.1]);
-pt_B = np.array([0.9, 0.8, 0.7]);
+pt_A = np.array([100, 100, 100]);
+pt_B = np.array([110, 110, 110]);
 V_max = 1;
 
 leg=distance_3d(pt_A, pt_B)
@@ -17,30 +17,31 @@ leg=distance_3d(pt_A, pt_B)
 #    distance_3d(pt_A, pt_B);
 #    return leg
 #print(leg)
-A_max = 4; # max allowable effector acceleration (m/s^2)
-V_tol = 10; # velocity tolerance (m/s) for start and end of motion with sigmoid
+A_max = 4; # max allowable effector acceleration (mm/s^2)
+V_tol = 10; # velocity tolerance (mm/s) for start and end of motion with sigmoid
 time_step = 0.0001; # interval between points, i.e. resolution of model
 path_motion,path_accel = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
 
 cartesian_position = cartesian_motion_conversion(path_motion, pt_A, pt_B, leg)
 
-w = 800; # width (X-dimension) of working area (m)
-l = 800; # length (Y-dimension) of working area (m)
-ht = 800; # height (Z-dimension) of top winches (m)
-hb = 450; # height (Z-dimension of bottom winches (m)
-e = 50; # half-length (Y-dimension) of effector (m)
-f = 50; # half-width (X-dimension) of effector (m)
-g = 50; # half-height (Z-dimension) of effector (m)
+w = 800; # width (X-dimension) of working area (mm)
+l = 800; # length (Y-dimension) of working area (mm)
+ht = 800; # height (Z-dimension) of top winches (mm)
+hb = 450; # height (Z-dimension of bottom winches (mm)
+e = 50; # half-length (Y-dimension) of effector (mm)
+f = 50; # half-width (X-dimension) of effector (mm)
+g = 50; # half-height (Z-dimension) of effector (mm)
 ideal_cables = ideal_cable_length(w, l, ht, hb, e, f, g, cartesian_position)
 
 spr = 200; # steps per revolution
 drive_ratio = 1; # gear reduction on stepper (input:output)
-spool_radius = 20; # spool radius (m)
+spool_radius = 20; # spool radius (mm)
 step_length = (np.pi*2*spool_radius)/(spr*drive_ratio); # arc length swept by each step (i.e. cable length change)
 
 stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
 command_array = command_generator(stepped_cables);
 
 print(command_array)
+input("Press Enter to continue...")
 
 execute_command(command_array)
