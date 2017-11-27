@@ -33,3 +33,4 @@ def execute_command(command_array):
 		GPIO.output(13, 0) # B4 STP
 
 		time.sleep(time_step - time.perf_couter() + start_time)
+		

@@ -12,7 +12,7 @@ pt_B = np.array([110, 110, 110]);
 V_max = 1;
 
 leg=distance_3d(pt_A, pt_B)
-
+print(leg)
 #def motion_generator(pt_A, pt_B, V_max):
 #    distance_3d(pt_A, pt_B);
 #    return leg
@@ -20,7 +20,7 @@ leg=distance_3d(pt_A, pt_B)
 A_max = 4; # max allowable effector acceleration (mm/s^2)
 V_tol = 10; # velocity tolerance (mm/s) for start and end of motion with sigmoid
 time_step = 0.0001; # interval between points, i.e. resolution of model
-path_motion,path_accel = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
+path_motion = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
 
 cartesian_position = cartesian_motion_conversion(path_motion, pt_A, pt_B, leg)
 
