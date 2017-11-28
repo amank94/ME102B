@@ -7,5 +7,7 @@ def stepped_cable_lengths(ideal_cable_length, step_length):
     
     for i in range (8):
         stepped_cables[i,:] = np.ceil((ideal_cable_length[i,:] - ideal_cable_length[i,0])/step_length)*step_length + ideal_cable_length[i,0];
-        
+    
+    print('stepped cable lengths', stepped_cables)
+    print('stepped cable length array shape', stepped_cables.shape)
     return stepped_cables
