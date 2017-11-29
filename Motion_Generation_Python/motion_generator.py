@@ -31,14 +31,16 @@ hb = 450; # height (Z-dimension of bottom winches (mm)
 e = 50; # half-length (Y-dimension) of effector (mm)
 f = 50; # half-width (X-dimension) of effector (mm)
 g = 50; # half-height (Z-dimension) of effector (mm)
-ideal_cables = ideal_cable_length(w, l, ht, hb, e, f, g, cartesian_position)
+spool_ratio=0.0269;
+
+real_cable_delta = ideal_cable_length(w, l, ht, hb, e, f, g, spool_ratio, cartesian_position)
 
 spr = 200; # steps per revolution
 drive_ratio = 1; # gear reduction on stepper (input:output)
 spool_radius = 20; # spool radius (mm)
 step_length = (np.pi*2*spool_radius)/(spr*drive_ratio); # arc length swept by each step (i.e. cable length change)
 
-stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
+stepped_cables = stepped_cable_lengths(real_cable_delta, step_length);
 command_array = command_generator(stepped_cables);
 
 setup_sequence()

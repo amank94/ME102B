@@ -1,4 +1,4 @@
-def ideal_cable_length(w,l,ht,hb,e,f,g,cartesian_position):
+def ideal_cable_length(w,l,ht,hb,e,f,g,spool_ratio,cartesian_position):
     import numpy as np
     x_position = cartesian_position[0,:];
     y_position = cartesian_position[1,:];
@@ -21,24 +21,27 @@ def ideal_cable_length(w,l,ht,hb,e,f,g,cartesian_position):
     #     )
     
     T1_cable_ideal = np.array(((x_position+wao-winch_a-f)**2 + (y_position+wao-winch_b-e)**2 + (ht-z_position-gt)**2)**(0.5));
-    T2_cable_ideal = np.array(((w-x_position-winch_b-f)**2 + (y+wao-winch_a-e)**2 + (ht-z_position-gt)**2)**(0.5));
+    T2_cable_ideal = np.array(((w-x_position-winch_b-f)**2 + (y_position+wao-winch_a-e)**2 + (ht-z_position-gt)**2)**(0.5));
     T3_cable_ideal = np.array(((w-x_position-winch_a-f)**2 + (l-wao-y_position-winch_b-e)**2 + (ht-z_position-gt)**2)**(0.5));
     T4_cable_ideal = np.array(((x_position+wao-winch_b-f)**2 + (l-wao-y_position-winch_a-e)**2 + (ht-z_position-gt)**2)**(0.5));
     
     B1_cable_ideal = np.array(((x_position+wao-winch_a-f)**2 + (y_position+wao-winch_b-e)**2 + (hb-z_position-gb)**2)**(0.5));
-    B2_cable_ideal = np.array(((w-x_position-winch_b-f)**2 + (y+wao-winch_a-e)**2 + (hb-z_position-gb)**2)**(0.5));
+    B2_cable_ideal = np.array(((w-x_position-winch_b-f)**2 + (y_position+wao-winch_a-e)**2 + (hb-z_position-gb)**2)**(0.5));
     B3_cable_ideal = np.array(((w-x_position-winch_a-f)**2 + (l-wao-y_position-winch_b-e)**2 + (hb-z_position-gb)**2)**(0.5));
     B4_cable_ideal = np.array(((x_position+wao-winch_b-f)**2 + (l-wao-y_position-winch_a-e)**2 + (hb-z_position-gb)**2)**(0.5));
 
-    ideal_cables = np.array([(T1_cable_ideal),
-                             (T2_cable_ideal),
-                             (T3_cable_ideal),
-                             (T4_cable_ideal),
-                             (B1_cable_ideal),
-                             (B2_cable_ideal),
-                             (B3_cable_ideal),
-                             (B4_cable_ideal)]);
+    ideal_cable_delta = np.array([(T1_cable_ideal-T1_cable_ideal[0]),
+                             (T2_cable_ideal-T2_cable_ideal[0]),
+                             (T3_cable_ideal-T3_cable_ideal[0]),
+                             (T4_cable_ideal-T4_cable_ideal[0]),
+                             (B1_cable_ideal-B1_cable_ideal[0]),
+                             (B2_cable_ideal-B2_cable_ideal[0]),
+                             (B3_cable_ideal-B3_cable_ideal[0]),
+                             (B4_cable_ideal-B4_cable_ideal[0])]);
     
-    print('ideal cable lengths', ideal_cables)
+    print("ideal cable delta",ideal_cable_delta)
+    real_cable_delta=ideal_cable_delta+(ideal_cable_delta*spool_ratio)
+    print("real cable delta",real_cable_delta)
 
-    return ideal_cables
+
+    return real_cable_delta
