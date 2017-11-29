@@ -8,8 +8,8 @@ def ideal_cable_length(w,l,ht,hb,e,f,g,spool_ratio,cartesian_position):
     winch_b=44.6
     wao=200
 
-    gt=100
-    gb=gt-50
+    gt=98
+    gb=53
 
     # offset=np.array(())
     # stepper_position=np.array(

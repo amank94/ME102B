@@ -8,8 +8,8 @@ from command_generator import command_generator
 from execute_command import execute_command
 from setup_sequence import setup_sequence
 
-pt_A = np.array([0, 0, 0]);
-pt_B = np.array([200, 200, 200]);
+pt_A = np.array([200, 200, 200]);
+pt_B = np.array([0, 0, 0]);
 V_max = 100;
 
 leg=distance_3d(pt_A, pt_B)
@@ -26,10 +26,10 @@ cartesian_position = cartesian_motion_conversion(path_position, pt_A, pt_B, leg)
 
 w = 800; # width (X-dimension) of working area (mm)
 l = 800; # length (Y-dimension) of working area (mm)
-ht = 800; # height (Z-dimension) of top winches (mm)
+ht = 780; # height (Z-dimension) of top winches (mm)
 hb = 450; # height (Z-dimension of bottom winches (mm)
-e = 50; # half-length (Y-dimension) of effector (mm)
-f = 50; # half-width (X-dimension) of effector (mm)
+e = 54; # half-length (Y-dimension) of effector (mm)
+f = 54; # half-width (X-dimension) of effector (mm)
 g = 50; # half-height (Z-dimension) of effector (mm)
 spool_ratio=0.0269;
 
