@@ -8,7 +8,7 @@ from command_generator import command_generator
 from execute_command import execute_command
 from setup_sequence import setup_sequence
 
-pt_A = np.array([100, 100, 100]);
+pt_A = np.array([0, 0, 0]);
 pt_B = np.array([200, 200, 200]);
 V_max = 100;
 
