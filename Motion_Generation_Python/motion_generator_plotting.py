@@ -9,9 +9,9 @@ from command_generator import command_generator
 #from execute_command import execute_command
 #from setup_sequence import setup_sequence
 
-pt_B = np.array([0, 200, 615]);
-pt_A = np.array([400, 200, 615]);
-V_max = 1000;
+pt_A = np.array([200, 200, 200]);
+pt_B = np.array([200, 200, 0]);
+V_max = 100;
 
 leg=distance_3d(pt_A, pt_B)
 #def motion_generator(pt_A, pt_B, V_max):
@@ -20,11 +20,11 @@ leg=distance_3d(pt_A, pt_B)
 #	 print("leg",leg)
 A_max = 1000; # max allowable effector acceleration (mm/s^2)
 V_tol = 1; # velocity tolerance (mm/s) for start and end of motion with sigmoid
-time_step = 0.01; # interval between points, i.e. resolution of model
+time_step = 0.005; # interval between points, i.e. resolution of model
 path_position = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
 
 cartesian_position = cartesian_motion_conversion(path_position, pt_A, pt_B, leg)
-plt.figure(5)
+plt.figure(1)
 plt.subplot(131)
 plt.plot(cartesian_position[0,:])
 plt.subplot(132)
@@ -43,29 +43,29 @@ g = 50; # half-height (Z-dimension) of effector (mm)
 spool_ratio=0.0269; #  pitch/circumference
 
 real_cable_delta = ideal_cable_length(w, l, ht, hb, e, f, g, spool_ratio, cartesian_position)
-plt.figure(1)
-plt.subplot(221)
-plt.plot(real_cable_delta[3,:])
-plt.subplot(222)
-plt.plot(real_cable_delta[2,:])
-plt.subplot(223)
-plt.plot(real_cable_delta[1,:])
-plt.subplot(224)
-plt.plot(real_cable_delta[0,:])
-plt.title('Top')
-plt.show()
+# plt.figure(1)
+# plt.subplot(221)
+# plt.plot(real_cable_delta[3,:])
+# plt.subplot(222)
+# plt.plot(real_cable_delta[2,:])
+# plt.subplot(223)
+# plt.plot(real_cable_delta[1,:])
+# plt.subplot(224)
+# plt.plot(real_cable_delta[0,:])
+# plt.title('Top')
+# plt.show()
 
-plt.figure(2)
-plt.subplot(221)
-plt.plot(real_cable_delta[7,:])
-plt.subplot(222)
-plt.plot(real_cable_delta[6,:])
-plt.subplot(223)
-plt.plot(real_cable_delta[5,:])
-plt.subplot(224)
-plt.plot(real_cable_delta[4,:])
-plt.title('Bottom')
-plt.show()
+# plt.figure(2)
+# plt.subplot(221)
+# plt.plot(real_cable_delta[7,:])
+# plt.subplot(222)
+# plt.plot(real_cable_delta[6,:])
+# plt.subplot(223)
+# plt.plot(real_cable_delta[5,:])
+# plt.subplot(224)
+# plt.plot(real_cable_delta[4,:])
+# plt.title('Bottom')
+# plt.show()
 
 spr = 200; # steps per revolution
 drive_ratio = 1; # gear reduction on stepper (input:output)
@@ -74,32 +74,33 @@ step_length = (np.pi*2*spool_radius)/(spr*drive_ratio); # arc length swept by ea
 
 stepped_cables = stepped_cable_lengths(real_cable_delta, step_length);
 
-# plt.figure(3)
-# plt.subplot(221)
-# plt.plot(stepped_cables[3,:])
-# plt.subplot(222)
-# plt.plot(stepped_cables[2,:])
-# plt.subplot(223)
-# plt.plot(stepped_cables[1,:])
-# plt.subplot(224)
-# plt.plot(stepped_cables[0,:])
-# plt.title('Top Stepped')
-# plt.show()
+plt.figure(2)
+plt.subplot(221)
+plt.plot(stepped_cables[3,:])
+plt.subplot(222)
+plt.plot(stepped_cables[2,:])
+plt.subplot(223)
+plt.plot(stepped_cables[1,:])
+plt.subplot(224)
+plt.plot(stepped_cables[0,:])
+plt.title('Top Stepped')
+plt.show()
 
-# plt.figure(4)
-# plt.subplot(221)
-# plt.plot(stepped_cables[7,:])
-# plt.subplot(222)
-# plt.plot(stepped_cables[6,:])
-# plt.subplot(223)
-# plt.plot(stepped_cables[5,:])
-# plt.subplot(224)
-# plt.plot(stepped_cables[4,:])
-# plt.title('Bottom Stepped')
-# plt.show()
+plt.figure(3)
+plt.subplot(221)
+plt.plot(stepped_cables[7,:])
+plt.subplot(222)
+plt.plot(stepped_cables[6,:])
+plt.subplot(223)
+plt.plot(stepped_cables[5,:])
+plt.subplot(224)
+plt.plot(stepped_cables[4,:])
+plt.title('Bottom Stepped')
+plt.show()
 
 
 command_array = command_generator(stepped_cables);
+np.savetxt("command_array_4.csv", command_array, delimiter=",")
 
 #for i in range(8):
 #	for j in range(len(command_array[0]))
