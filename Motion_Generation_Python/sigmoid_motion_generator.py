@@ -5,7 +5,7 @@ def sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step):
     ## Initial Values of Parameters and Time
     a = (4*V_max)/leg; # steepness (limited by V_max initially)
     c = 0; # location of mid-path (inflection point)
-    t = np.arange(0,10,time_step);
+    t = np.arange(0,15,time_step);
 
     #sig_num = -leg/(1+np.exp(-a*(c-t))) + leg;
     #d_sig_num = (leg*a**2*np.exp(-a*(c-t)))/(np.exp(-a*(c-t))+1)**2;

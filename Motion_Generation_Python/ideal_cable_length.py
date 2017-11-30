@@ -39,8 +39,10 @@ def ideal_cable_length(w,l,ht,hb,e,f,g,spool_ratio,cartesian_position):
                              (B3_cable_ideal-B3_cable_ideal[0]),
                              (B4_cable_ideal-B4_cable_ideal[0])]);
     
-    print("ideal cable delta",ideal_cable_delta)
+    #print("ideal cable delta",ideal_cable_delta)
     real_cable_delta=ideal_cable_delta+(ideal_cable_delta*spool_ratio)
+
+    print("T2 ideal cable",T2_cable_ideal*0.0393701)
     print("real cable delta",real_cable_delta)
 
 
