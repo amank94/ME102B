@@ -3,8 +3,8 @@ def execute_command(command_array):
 	import RPi.GPIO as GPIO
 	for i in range(len(command_array[0])):
 		# start_time = time.perf_counter();
-                # print('dir',int(command_array[0,i]))
-                print('step',int(command_array[1,i]))
+        # print('dir',int(command_array[0,i]))
+        print('step',int(command_array[1,i]))
 		GPIO.output(3, int(command_array[0,i])) # T1 DIR
 		GPIO.output(14, int(command_array[2,i])) # T2 DIR
 		GPIO.output(18, int(command_array[4,i])) # T3 DIR
