@@ -28,7 +28,7 @@ step_length = (pi*2*spool_radius)/(spr*drive_ratio); % arc length swept by each 
 %%
 stepped_cables = stepped_cable_lengths(ideal_cables, step_length);
 %%
-toc
+
 clf
 figure(1)
 

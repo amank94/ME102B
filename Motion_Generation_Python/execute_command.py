@@ -16,7 +16,6 @@ def execute_command(command_array):
 
 		GPIO.output(2, int(command_array[1,i])) # T1 STP
 		GPIO.output(4, int(command_array[3,i])) # T2 STP
-		#GPIO.output(4,1)
 		GPIO.output(15, int(command_array[5,i])) # T3 STP
 		GPIO.output(17, int(command_array[7,i])) # T4 STP
 		GPIO.output(22, int(command_array[9,i])) # B1 STP

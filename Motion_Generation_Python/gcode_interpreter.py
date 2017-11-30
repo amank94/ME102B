@@ -1,9 +1,10 @@
-def gcode_interpreter(gcode):
+def gcode_interpreter(gcode, pt_A):
 
 	import numpy as np
 	import time
+	from rotate_effector import rotate_effector
+	from switch_electromagnet import switch_electromagnet
 
-	pt_A = np.array([0,0,0]) # begin with pt_A at home
 	pt_B = np.array([0,0,0]) # begin with unfilled pt_B array
 	v_max = 0 # begin with max velocity set to 0
 	v_rapid = 1000 # velocity for rapid (G00) movements
@@ -67,8 +68,7 @@ def gcode_interpreter(gcode):
 						else: # if space after X, i.e. more info on line
 							c = int(line[line.index('C')+1:line.index(' ', line.index('C'), len(line))])
 						print('rotate effector to', c, 'degrees')
-
-						# CALL FUNCTION TO ROTATE EFFECTOR
+						rotate_effector(c)
 
 				if(line[1] + line[2] == '04'): # if it's a G04
 					#print('    dwell found')
@@ -91,14 +91,14 @@ def gcode_interpreter(gcode):
 
 				if (line[1] + line[2] == '10'):
 					print('turn on electromagnet')
-					# TURN ON ELECTROMAGNET
+					switch_electromagnet(1)
 				if (line[1] + line[2] == '11'):
 					print('turn off electromagnet')
-					# TURN OFF ELECTROMAGNET
+					switch_electromagnet(0)
 				if (line[1] + line[2] == '30'):
 					print('End of program.')
 					break
 
-
+	return(pt_B)
 
 
