@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def motion_generator(pt_A, pt_B, V_max):
 
 	import numpy as np
@@ -51,3 +52,4 @@ def motion_generator(pt_A, pt_B, V_max):
 	#raw_input("Press Enter to continue...")
 
 	execute_command(command_array, time_step)
+
