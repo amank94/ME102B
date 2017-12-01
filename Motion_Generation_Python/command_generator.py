@@ -6,23 +6,24 @@ def command_generator(stepped_cables):
 	for i in range(8):
 		for j in range(1,len(stepped_cables[0])):
 
-			diff = np.sign(stepped_cables[i,j] -  stepped_cables[i,j-1])
+			diff = int(np.sign(stepped_cables[i,j] -  stepped_cables[i,j-1]))
 			print(diff)
-			if int(diff) == 1 :
+			if (diff > 0):
 				step = 1
 				direction = 1
 
-			if int(diff) < -0.5 :
+			elif (diff < 0):
 				step = 1
 				direction = 0
 
-			if int(diff) == 0 :
+			elif (diff == 0):
 				step = 0
 				direction = 0 
 			else:
 				print('error in command generator', i, j)
 
 			command_array[2*i,j] = direction
+
 			command_array[2*i+1,j] = step
 	
 	print(command_array.shape)
