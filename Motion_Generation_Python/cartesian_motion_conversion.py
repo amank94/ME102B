@@ -10,6 +10,6 @@ def cartesian_motion_conversion(path_position, pt_A, pt_B, leg):
     cartesian_position[0,:] = pt_A[0] + np.sign(x_component)*(x_component**2/leg**2)*path_position;
     cartesian_position[1,:] = pt_A[1] + np.sign(y_component)*(y_component**2/leg**2)*path_position;
     cartesian_position[2,:] = pt_A[2] + np.sign(z_component)*(z_component**2/leg**2)*path_position;
-    print('cartesian position',cartesian_position)
+    #print('cartesian position',cartesian_position)
 
     return cartesian_position
