@@ -8,9 +8,9 @@ from command_generator import command_generator
 from execute_command import execute_command
 from setup_sequence import setup_sequence
 
-pt_A = np.array([0, 0, 0]);
-pt_B = np.array([200, 200, 200]);
-V_max = 100;
+pt_A = np.array([130, 130, 58]);
+pt_B = np.array([200, 200, 0]);
+V_max = 50;
 
 leg=distance_3d(pt_A, pt_B)
 #def motion_generator(pt_A, pt_B, V_max):
@@ -19,7 +19,7 @@ leg=distance_3d(pt_A, pt_B)
 #	 print("leg",leg)
 A_max = 1000; # max allowable effector acceleration (mm/s^2)
 V_tol = 1; # velocity tolerance (mm/s) for start and end of motion with sigmoid
-time_step = 0.005; # interval between points, i.e. resolution of model
+time_step = 0.001; # interval between points, i.e. resolution of model
 path_position = sigmoid_motion_generator(leg, V_max, A_max, V_tol, time_step)
 
 cartesian_position = cartesian_motion_conversion(path_position, pt_A, pt_B, leg)
@@ -32,8 +32,6 @@ e = 54; # half-length (Y-dimension) of effector (mm)
 f = 54; # half-width (X-dimension) of effector (mm)
 g = 50; # half-height (Z-dimension) of effector (mm)
 spool_ratio=0.0269; #  pitch/circumference
-
-118 80
 
 real_cable_delta = ideal_cable_length(w, l, ht, hb, e, f, g, spool_ratio, cartesian_position)
 
