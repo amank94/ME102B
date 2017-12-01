@@ -12,7 +12,7 @@ setup_sequence()
 # HOMING SEQUENCE
 print('Ready to home system?')
 time.sleep(1)
-input("Press Enter to continue...")
+raw_input("Press Enter to continue...")
 time.sleep(1)
 print('Homing system...')
 # REEL IN WINCHES
